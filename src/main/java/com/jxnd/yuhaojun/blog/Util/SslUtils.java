@@ -8,7 +8,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
+    //工具类  能过无视所有网站的证书检测
 public class SslUtils {
 
     public static void trustAllHttpsCertificates() throws Exception {

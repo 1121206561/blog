@@ -1,2 +1,14 @@
 server:
   port: 8887
+
+Github:
+  Client_id: 1885fcec32c1656b5e00
+  Client_secret: e88e7999cebe9defbf3018d9c390d128308d3aa3
+  Redirect_uri: http://localhost:8887/callback
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///blog?serverTimezone=UTC&characterEncoding=utf-8
+    username: root
+    password: admin
