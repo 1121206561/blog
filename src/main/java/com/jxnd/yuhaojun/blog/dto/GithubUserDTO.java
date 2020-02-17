@@ -8,4 +8,5 @@ public class GithubUserDTO {
     private String login;
     private String node_id;
     private Long id;
+    private String avatar_url;
 }

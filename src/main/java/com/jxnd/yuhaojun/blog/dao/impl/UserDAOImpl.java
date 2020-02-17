@@ -27,6 +27,7 @@ public class UserDAOImpl implements UserDAO {
         user.setToken(token);
         user.setGmt_create(System.currentTimeMillis());
         user.setGmt_modified(user.getGmt_create());
+        user.setAvatar_url(githubUserDTO.getAvatar_url());
         mapper.insert(user);
     }
 
