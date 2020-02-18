@@ -6,6 +6,8 @@ import com.jxnd.yuhaojun.blog.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class QuestionDAOImpl implements QuestionDAO {
     @Autowired
@@ -18,5 +20,11 @@ public class QuestionDAOImpl implements QuestionDAO {
             question.setGmt_modified(question.getGmt_create());
             mapper.insert(question);
         }
+    }
+
+    @Override
+    public List<Question> select(Integer offset, Integer size) {
+        List<Question> list = mapper.select(offset, size);
+        return list;
     }
 }

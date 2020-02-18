@@ -35,4 +35,9 @@ public class UserDAOImpl implements UserDAO {
     public User select(String token) {
         return mapper.select(token);
     }
+
+    @Override
+    public User selectByCreator(String creator) {
+        return mapper.selectByCreator(creator);
+    }
 }

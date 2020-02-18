@@ -13,4 +13,7 @@ public interface UserMapper {
 
     @Select("SELECT * FROM user WHERE token = #{token}")
     User select(String token);
+
+    @Select("SELECT * FROM user WHERE login = #{creator}")
+    User selectByCreator(String creator);
 }

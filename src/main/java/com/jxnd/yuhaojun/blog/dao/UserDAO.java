@@ -9,4 +9,6 @@ public interface UserDAO {
     void insert(GithubUserDTO githubUserDTO, HttpServletResponse response);
 
     User select(String token);
+
+    User selectByCreator(String creator);
 }
