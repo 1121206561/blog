@@ -22,6 +22,12 @@ public class QuestionService {
     private UserDAO userDAO;
 
     public PaginationDTO select(Integer page, Integer size) {
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > 6) {
+            page = 6;
+        }
         Integer offset = (page - 1) * size;
         //查询出文章信息
         List<Question> list = questionDAO.select(offset, size);
@@ -37,6 +43,8 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestionDTOList(questionDTOList);
+        Integer count = questionDAO.selectByCount();
+        paginationDTO.setpagination(count, page, size);
         return paginationDTO;
     }
 }

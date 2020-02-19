@@ -8,4 +8,6 @@ public interface QuestionDAO {
     void insert(Question question);
 
     List<Question> select(Integer offset,Integer size);
+
+    Integer selectByCount();
 }

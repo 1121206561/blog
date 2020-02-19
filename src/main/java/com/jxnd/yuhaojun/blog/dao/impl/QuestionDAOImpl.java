@@ -27,4 +27,9 @@ public class QuestionDAOImpl implements QuestionDAO {
         List<Question> list = mapper.select(offset, size);
         return list;
     }
+
+    @Override
+    public Integer selectByCount() {
+        return mapper.selectByCount();
+    }
 }

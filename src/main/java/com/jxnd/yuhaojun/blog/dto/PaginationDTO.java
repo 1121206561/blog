@@ -2,8 +2,10 @@ package com.jxnd.yuhaojun.blog.dto;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
- //分页信息
+
+//分页信息
 @Data
 public class PaginationDTO {
     private List<QuestionDTO> questionDTOList;
@@ -12,5 +14,50 @@ public class PaginationDTO {
     private Boolean showNext;
     private Boolean showEndPage;
     private Integer page;
-    private List<Integer> pages;
+    private Integer totalCount;
+    private List<Integer> pages = new ArrayList<>();
+
+    public void setpagination(Integer count, Integer page, Integer size) {
+        this.page = page;
+        //计算总页数
+        if (count % size == 0) {
+            totalCount = count / size;
+        } else {
+            totalCount = count / size + 1;
+        }
+        //计算分页框
+        pages.add(page);
+        for (int i = 1; i <= 3; i++) {
+            if (page - i >= 1) {
+                pages.add(0, page - i);
+            }
+            if (page + i <= totalCount) {
+                pages.add(page + i);
+            }
+        }
+        //计算是否有下一页
+        if (page == totalCount) {
+            showNext = false;
+        } else {
+            showNext = true;
+        }
+        //计算是否有上一页
+        if (page == 1) {
+            showPrevious = false;
+        } else {
+            showPrevious = true;
+        }
+        //计算是否有第一页
+        if (pages.contains(1)) {
+            showFirstPage = false;
+        } else {
+            showFirstPage = true;
+        }
+        //计算是否有最后一页
+        if (pages.contains(totalCount)) {
+            showEndPage = false;
+        } else {
+            showEndPage = true;
+        }
+    }
 }
