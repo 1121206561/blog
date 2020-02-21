@@ -1,6 +1,6 @@
 package com.jxnd.yuhaojun.blog.service;
 
-import com.jxnd.yuhaojun.blog.Mapper.QuestionMapper;
+import com.jxnd.yuhaojun.blog.dao.QuestionDAO;
 import com.jxnd.yuhaojun.blog.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyQuestionService {
     @Autowired
-    private QuestionMapper mapper;
+    private QuestionDAO questionDAO;
 
     public Question selectById(Integer id) {
-        Question question = mapper.selectById(id);
+        Question question = questionDAO.selectById(id);
         return question;
     }
 }

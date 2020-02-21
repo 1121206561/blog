@@ -4,6 +4,7 @@ import com.jxnd.yuhaojun.blog.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -27,4 +28,7 @@ public interface QuestionMapper {
 
     @Select("SELECT * FROM question WHERE id = #{id}")
     Question selectById(Integer id);
+
+    @Update("UPDATE question SET title= #{title},description= #{description},tag= #{tag} WHERE id = #{id}")
+    void update(Question question);
 }

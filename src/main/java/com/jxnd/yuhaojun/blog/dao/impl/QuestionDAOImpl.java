@@ -32,4 +32,14 @@ public class QuestionDAOImpl implements QuestionDAO {
     public Integer selectByCount() {
         return mapper.selectByCount();
     }
+
+    @Override
+    public Question selectById(Integer id) {
+        return mapper.selectById(id);
+    }
+
+    @Override
+    public void update(Question question) {
+        mapper.update(question);
+    }
 }

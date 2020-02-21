@@ -1,14 +1,15 @@
 package com.jxnd.yuhaojun.blog.controller;
 
-import com.jxnd.yuhaojun.blog.dao.UserDAO;
 import com.jxnd.yuhaojun.blog.dto.AccessTokenDTO;
 import com.jxnd.yuhaojun.blog.dto.GithubUserDTO;
 import com.jxnd.yuhaojun.blog.provider.GithubProvider;
+import com.jxnd.yuhaojun.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +19,7 @@ public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
     @Autowired
-    private UserDAO DAO;
+    private UserService userService;
     @Value("${Github.Client_id}")
     private String Client_id;
     @Value("${Github.Client_secret}")
@@ -39,11 +40,20 @@ public class AuthorizeController {
         GithubUserDTO githubUserDTO = githubProvider.getUser(access_token);
         if (githubUserDTO != null) {
             //如果能够成功得到用户信息,则把该信息存储在session中,并跳转回主页面
-            DAO.insert(githubUserDTO,response);
+            userService.service(githubUserDTO, response);
             return "redirect:/index";
         } else {
             //登陆失败
             return "redirect:/index";
         }
+    }
+
+    @GetMapping("logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/index";
     }
 }

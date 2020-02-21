@@ -4,6 +4,7 @@ import com.jxnd.yuhaojun.blog.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 //Mybatis对数据库的具体操作
 @Mapper
@@ -16,4 +17,11 @@ public interface UserMapper {
 
     @Select("SELECT * FROM user WHERE login = #{creator}")
     User selectByCreator(String creator);
+
+
+    @Select("SELECT * FROM user WHERE account_id = #{account_id}")
+    User selectByAccount(Long id);
+
+    @Update("UPDATE user SET token= #{token},gmt_create= #{gmt_create},gmt_modified= #{gmt_modified} WHERE account_id = #{account_id}")
+    void update(User user);
 }

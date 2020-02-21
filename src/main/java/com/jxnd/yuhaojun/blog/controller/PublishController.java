@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ public class PublishController {
 
     //对用户发布的信息进行处理
     @PostMapping("publish")
-    public String doPublish(String title, String description, String tag, HttpServletRequest request, Model model) {
+    public String doPublish(Integer id, String title, String description, String tag, HttpServletRequest request, Model model) {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             model.addAttribute("error", "用户未登录");
@@ -51,8 +52,22 @@ public class PublishController {
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
-        dao.insert(question);
+        if (id != null) {
+            question.setId(id);
+            dao.update(question);
+        } else {
+            dao.insert(question);
+        }
         return "redirect:/index";
     }
 
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name = "id") Integer id, Model model) {
+        Question question = dao.selectById(id);
+        model.addAttribute("title", question.getTitle());
+        model.addAttribute("description", question.getDescription());
+        model.addAttribute("tag", question.getTag());
+        model.addAttribute("id", question.getId());
+        return "publish";
+    }
 }
