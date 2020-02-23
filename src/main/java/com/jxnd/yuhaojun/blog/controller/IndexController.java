@@ -15,8 +15,6 @@ public class IndexController {
 
     @Autowired
     private QuestionService questionService;
-    @Autowired
-    private QqqqqMapper qqqqqMapper;
 
     @GetMapping("/index")
     public String hello(HttpServletRequest request, Model model, @RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "size", defaultValue = "5") Integer size) {

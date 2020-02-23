@@ -15,3 +15,4 @@ spring:
 mybatis:
   type-aliases-package: com.jxnd.yuhaojun.blog.model
   mapper-locations: classpath:mapper/*.xml
+

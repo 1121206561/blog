@@ -1,6 +1,8 @@
 package com.jxnd.yuhaojun.blog.controller;
 
 import com.jxnd.yuhaojun.blog.dao.QuestionDAO;
+import com.jxnd.yuhaojun.blog.exception.CustomizeErrorCode;
+import com.jxnd.yuhaojun.blog.exception.CustomizeException;
 import com.jxnd.yuhaojun.blog.model.Question;
 import com.jxnd.yuhaojun.blog.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,9 @@ public class PublishController {
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable(name = "id") Integer id, Model model) {
         Question question = dao.selectById(id);
+        if (question == null) {
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         model.addAttribute("title", question.getTitle());
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag", question.getTag());
