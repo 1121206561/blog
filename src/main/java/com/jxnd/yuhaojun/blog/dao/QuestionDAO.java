@@ -14,4 +14,8 @@ public interface QuestionDAO {
     Question selectById(Integer id);
 
     void update(Question question);
+
+    void updateByView(Integer id);
+
+    void updateByComment(Integer id);
 }

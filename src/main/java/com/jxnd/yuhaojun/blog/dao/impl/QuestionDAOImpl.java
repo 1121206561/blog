@@ -42,4 +42,14 @@ public class QuestionDAOImpl implements QuestionDAO {
     public void update(Question question) {
         mapper.update(question);
     }
+
+    @Override
+    public void updateByView(Integer id) {
+        mapper.updateByView(id);
+    }
+
+    @Override
+    public void updateByComment(Integer id) {
+        mapper.updateByComment(id);
+    }
 }

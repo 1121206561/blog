@@ -23,6 +23,8 @@ public class QuestionController {
 
     @GetMapping("/MyQuestion/{id}")
     public String question(@PathVariable(name = "id") Integer id, Model model) {
+        //更新阅读数
+        myQuestionService.updateByView(id);
         Question question = myQuestionService.selectById(id);
         if (question == null) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
