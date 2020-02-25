@@ -9,6 +9,16 @@
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="/css/blog.css">
 </head>
+<!--判断如果是在评论的时候选择登录,则会关闭该页面,实现不跳转登录-->
+<script type="application/javascript">
+    window.onload = function () {
+        var closeable = window.localStorage.getItem("closable");
+        if (closeable == "true") {
+            window.close();
+            window.localStorage.removeItem("closable");
+        }
+    }
+</script>
 <body>
 <div th:insert="navigation :: nav"></div>
 <div class="container-fluid main">

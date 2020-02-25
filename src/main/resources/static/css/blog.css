@@ -17,6 +17,10 @@ body {
     height: 60px;
 }
 
+.media-heading {
+    padding-top: 20px;
+}
+
 .text-desc {
     font-size: 12px;
     font-weight: normal;
@@ -26,9 +30,21 @@ body {
 .profile .section {
     margin-top: 15px;
 }
-.blog-menu{
+
+.blog-menu {
     color: #9999;
 }
-.jumbotron{
+
+.jumbotron {
     margin: 50px;
+}
+
+.comment {
+    margin: 18px 0px;
+}
+
+.comment-btn {
+    float: right;
+    margin-bottom: 15px;
+    padding: 14px 20px;
 }
