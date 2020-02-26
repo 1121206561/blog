@@ -2,8 +2,12 @@ package com.jxnd.yuhaojun.blog.dao;
 
 import com.jxnd.yuhaojun.blog.model.Comment;
 
+import java.util.List;
+
 public interface CommentDAO {
     void insert(Comment comment);
 
     Comment select(Long id);
+
+    List<Comment> selectByComment(Integer id);
 }

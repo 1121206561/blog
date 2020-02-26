@@ -23,8 +23,8 @@ public class ProfileService {
         if (page < 1) {
             page = 1;
         }
-        if (page > 3) {
-            page = 3;
+        if (page > 5) {
+            page = 5;
         }
         Integer offset = (page - 1) * size;
         //查询出文章信息

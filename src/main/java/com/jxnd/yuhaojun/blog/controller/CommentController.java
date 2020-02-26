@@ -27,6 +27,9 @@ public class CommentController {
         if (user == null) {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
+        if (commentDTO == null || commentDTO.getContent() == null || "".trim().equals(commentDTO.getContent())) {
+            return ResultDTO.errorOf(CustomizeErrorCode.NO_CONTENT);
+        }
         Comment comment = new Comment();
         comment.setParentId(commentDTO.getParent_id());
         comment.setContent(commentDTO.getContent());

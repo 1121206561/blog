@@ -16,14 +16,14 @@
 <div class="container-fluid main profile">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
                 <h4><span th:text="${questionDTO.title}"></span></h4>
                 <span class="text-desc">
                 作者: <span th:text="${questionDTO.user.login}"></span>
                 发布时间: <span th:text="${#dates.format(questionDTO.gmt_create,'dd MMMM yyyy')}"></span>
                 阅读数: <span th:text="${questionDTO.view_count}"></span>
             </span>
-                <hr>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${questionDTO.description}"></div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <a th:href="@{'/publish/'+${questionDTO.id}}" class="blog-menu"
@@ -32,23 +32,57 @@
                     编辑
                 </a>
             </div>
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <!--回复-->
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 30px" id="comment-dis">
+                <h4><span th:text="${questionDTO.comment_count}"></span>个回复</h4>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp comments"
+                     th:each="comment:${commentDisDTOList}">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object img-rounded"
+                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h6>
+                                <span th:text="${comment.commentator}"></span>
+                            </h6>
+                            <div th:text="${comment.content}"></div>
+                            <div class="menu">
+                                <span class="glyphicon glyphicon-thumbs-up icon"></span>
+                                <span class="glyphicon glyphicon-comment icon"></span>
+                                <span class="pull-right"
+                                      th:text="${#dates.format(comment.gmtCreator,'yyyy-MM-dd')}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-rounded"
-                             src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg">
-                    </a>
+                <h3>提交回复</h3>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object img-rounded"
+                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h6 class="media-heading">
+                                <span th:text="${questionDTO.creator}"></span>
+                            </h6>
+                        </div>
+                        <!--用Js的点击事件方式,把传递的值转换成JSON格式发送给Controller-->
+                        <input type="hidden" id="comment_hidden" th:value="${questionDTO.id}">
+                        <textarea class="form-control comment" rows="6" id="comment_description"></textarea>
+                        <button type="button" class="btn btn-success comment-btn" onclick="post()">回复</button>
+                    </div>
                 </div>
-                <div class="media-body">
-                    <h6 class="media-heading">
-                        <span th:text="${questionDTO.creator}"></span>
-                    </h6>
-                </div>
-                <!--用Js的点击事件方式,把传递的值转换成JSON格式发送给Controller-->
-                <input type="hidden" id="comment_hidden" th:value="${questionDTO.id}">
-                <textarea class="form-control comment" rows="6" id="comment_description"></textarea>
-                <button type="button" class="btn btn-success comment-btn" onclick="post()">回复</button>
             </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

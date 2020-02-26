@@ -6,7 +6,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     NO_LOGIN(2003, "当前操作需要登陆,请登录后重试"),
     SYS_ERROR(2004, "服务冒烟了,请稍后再来访问！！！！"),
     TYPE_NOT_FOUND(2005, "评论类型不正确,请重新评论"),
-    COMMENT_NOT_FOUND(2006, "你找的评论不存在,请重新评论");
+    COMMENT_NOT_FOUND(2006, "你找的评论不存在,请重新评论"),
+    NO_CONTENT(2007, "评论不能为空！！！");
 
     private String message;
     private Integer code;

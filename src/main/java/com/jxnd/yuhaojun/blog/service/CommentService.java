@@ -2,6 +2,7 @@ package com.jxnd.yuhaojun.blog.service;
 
 import com.jxnd.yuhaojun.blog.dao.CommentDAO;
 import com.jxnd.yuhaojun.blog.dao.QuestionDAO;
+import com.jxnd.yuhaojun.blog.dto.CommentDisDTO;
 import com.jxnd.yuhaojun.blog.enums.CommentTypeEnum;
 import com.jxnd.yuhaojun.blog.exception.CustomizeErrorCode;
 import com.jxnd.yuhaojun.blog.exception.CustomizeException;
@@ -10,6 +11,9 @@ import com.jxnd.yuhaojun.blog.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -42,5 +46,13 @@ public class CommentService {
             commentDAO.insert(comment);
         }
         questionDAO.updateByComment(Integer.valueOf(comment.getParentId().toString()));
+    }
+
+    public List<Comment> selectByComment(Integer id) {
+        List<Comment> list = commentDAO.selectByComment(id);
+        if (list.size() == 0) {
+            return new ArrayList<>();
+        }
+        return list;
     }
 }
