@@ -1,19 +1,19 @@
 package com.jxnd.yuhaojun.blog.controller;
 
 import com.jxnd.yuhaojun.blog.dto.CommentDTO;
+import com.jxnd.yuhaojun.blog.dto.CommentDisDTO;
 import com.jxnd.yuhaojun.blog.dto.ResultDTO;
+import com.jxnd.yuhaojun.blog.enums.CommentTypeEnum;
 import com.jxnd.yuhaojun.blog.exception.CustomizeErrorCode;
 import com.jxnd.yuhaojun.blog.model.Comment;
 import com.jxnd.yuhaojun.blog.model.User;
 import com.jxnd.yuhaojun.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
@@ -40,5 +40,13 @@ public class CommentController {
         comment.setCommentator(Integer.valueOf(user.getLogin()));
         commentService.insert(comment);
         return ResultDTO.okOf();
+    }
+
+    //点击评论显示按钮显示回复的评论
+    @RequestMapping(value = "/comments/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Object comments(@PathVariable(name = "id") Long id) {
+        List<CommentDisDTO> commentDisDTOS = commentService.selectByComment(Integer.valueOf(id.toString()), CommentTypeEnum.Comment);
+        return ResultDTO.okOf(commentDisDTOS);
     }
 }

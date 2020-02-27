@@ -26,11 +26,11 @@ public class CommentDAOImpl implements CommentDAO {
     }
 
     @Override
-    public List<Comment> selectByComment(Integer id) {
+    public List<Comment> selectByComment(Integer id, CommentTypeEnum commentTypeEnum) {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria()
                 .andParentIdEqualTo(Long.valueOf(id.toString()))
-                .andTypeEqualTo(CommentTypeEnum.Question.getType());
+                .andTypeEqualTo(commentTypeEnum.getType());
         //按倒序排序
         commentExample.setOrderByClause("gmt_creator desc");
         List<Comment> list = mapper.selectByExample(commentExample);

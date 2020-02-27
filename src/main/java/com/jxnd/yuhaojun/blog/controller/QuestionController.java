@@ -3,9 +3,9 @@ package com.jxnd.yuhaojun.blog.controller;
 import com.jxnd.yuhaojun.blog.Mapper.UserMapper;
 import com.jxnd.yuhaojun.blog.dto.CommentDisDTO;
 import com.jxnd.yuhaojun.blog.dto.QuestionDTO;
+import com.jxnd.yuhaojun.blog.enums.CommentTypeEnum;
 import com.jxnd.yuhaojun.blog.exception.CustomizeErrorCode;
 import com.jxnd.yuhaojun.blog.exception.CustomizeException;
-import com.jxnd.yuhaojun.blog.model.Comment;
 import com.jxnd.yuhaojun.blog.model.Question;
 import com.jxnd.yuhaojun.blog.model.User;
 import com.jxnd.yuhaojun.blog.service.CommentService;
@@ -17,10 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 public class QuestionController {
@@ -45,26 +42,8 @@ public class QuestionController {
         questionDTO.setUser(user);
         model.addAttribute("questionDTO", questionDTO);
         //查询所有评论
-        List<Comment> comments = commentService.selectByComment(id);
-        //跟据评论的评论人获取它的信息
-        //获取评论信息的去掉重复后的评论人
-        Set<Integer> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
-        List<User> users = new ArrayList<>();
-        for (Integer commentator : commentators) {
-            users.add(userMapper.selectByCreator(commentator.toString()));
-        }
-        List<CommentDisDTO> commentDisDTOList = new ArrayList<>();
-        for (Comment comment : comments) {
-            CommentDisDTO commentDisDTO = new CommentDisDTO();
-            BeanUtils.copyProperties(comment, commentDisDTO);
-            for (User user1 : users) {
-                if (comment.getCommentator().equals(user1.getLogin())) {
-                    commentDisDTO.setUser(user1);
-                }
-            }
-            commentDisDTOList.add(commentDisDTO);
-        }
-        model.addAttribute("commentDisDTOList", commentDisDTOList);
+        List<CommentDisDTO> commentDisDTOS = commentService.selectByComment(id, CommentTypeEnum.Question);
+        model.addAttribute("commentDisDTOList", commentDisDTOS);
         return "myQuestion";
     }
 

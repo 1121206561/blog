@@ -1,8 +1,14 @@
-/*js的点击事件, 转换成json格式传递给url*/
+/*js的点击事件, 转换成json格式传递给url
+*  点击回复评论
+* */
 function post() {
     /*   取值*/
     var parent_id = $("#comment_hidden").val();
     var content = $("#comment_description").val();
+    comment(parent_id, content, 1)
+}
+
+function comment(id, content, type) {
     /*   判断*/
     if (!content) {
         alert("回复内容不能为空~~~")
@@ -14,9 +20,9 @@ function post() {
         url: "/comment",
         contentType: 'application/json',
         data: JSON.stringify({
-            "parent_id": parent_id,
+            "parent_id": id,
             "content": content,
-            "type": 1
+            "type": type
         }),
         success: function (response) {
             /*如果发送成功就隐藏回复页面,不成功则提示框报错*/
@@ -39,4 +45,44 @@ function post() {
         },
         dataType: "json"
     });
+}
+
+function commentTarger(e) {
+    var id = e.getAttribute("data-id");
+    var content = $("#input-" + id).val();
+    comment(id, content, 2)
+}
+
+//二级评论
+function collapseComments(e) {
+    //获取传递过来的值
+    var id = e.getAttribute("data-id")
+    //拿到需要操作的模块的id
+    var comments = $("#comment-" + id);
+    //判断是折叠还是打开
+    var collapse = e.getAttribute("data-collapse")
+    //如果有则折叠
+    if (collapse) {
+        //每次展示都会重新生成一个<div>所以每次折叠起来都要移除掉已经生成的
+        $("#qqq").remove();
+        comments.removeClass("in");
+        e.removeAttribute("data-collapse");
+        e.classList.remove("active");
+    } else {
+        //没有就打开
+        $.getJSON("/comments/" + id, function (data) {
+            var subCommentContainer = $('#comment-' + id);
+            $.each(data.data, function (index, comment) {
+                var c = $("<div/>", {
+                    "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp comments",
+                    "id": "qqq",
+                    html: comment.content
+                });
+                subCommentContainer.prepend(c);
+            });
+            comments.addClass("in");
+            e.setAttribute("data-collapse", "in");
+            e.classList.add("active");
+        });
+    }
 }

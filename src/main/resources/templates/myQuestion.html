@@ -53,9 +53,50 @@
                             <div th:text="${comment.content}"></div>
                             <div class="menu">
                                 <span class="glyphicon glyphicon-thumbs-up icon"></span>
-                                <span class="glyphicon glyphicon-comment icon"></span>
+                                <span class="glyphicon glyphicon-comment icon" th:data-id="${comment.id}"
+                                      onclick="collapseComments(this)"></span>
                                 <span class="pull-right"
                                       th:text="${#dates.format(comment.gmtCreator,'yyyy-MM-dd')}"></span>
+                            </div>
+
+                            <!-- 二级评论-->
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comments"
+                                 th:id="${'comment-'+comment.id}">
+
+
+                                <!--
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp comments"
+                                     th:each="comment:${commentDisDTOList}">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <img class="media-object img-rounded"
+                                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h6>
+                                                <span th:text="${comment.commentator}"></span>
+                                            </h6>
+                                            <div th:text="${comment.content}"></div>
+                                            <div class="menu">
+                                                <span class="pull-right"
+                                                      th:text="${#dates.format(comment.gmtCreator,'yyyy-MM-dd')}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                -->
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="评论一下..."
+                                           th:id="${'input-'+comment.id}">
+                                    <button type="button" class="btn btn-success pull-right" style="margin: 15px 0px"
+                                            onclick="commentTarger(this)" th:data-id="${comment.id}">
+                                        评论
+                                    </button>
+                                    </input>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,7 +121,8 @@
                         <!--用Js的点击事件方式,把传递的值转换成JSON格式发送给Controller-->
                         <input type="hidden" id="comment_hidden" th:value="${questionDTO.id}">
                         <textarea class="form-control comment" rows="6" id="comment_description"></textarea>
-                        <button type="button" class="btn btn-success comment-btn" onclick="post()">回复</button>
+                        <button type="button" class="btn btn-success comment-btn" onclick="post()">回复
+                        </button>
                     </div>
                 </div>
             </div>
