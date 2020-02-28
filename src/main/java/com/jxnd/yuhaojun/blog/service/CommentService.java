@@ -51,14 +51,16 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
             commentDAO.insert(comment);
+            //每次对评论的回复,会让点赞数+1'
+            commentDAO.updateLikeCount(comment.getParentId());
         }
         questionDAO.updateByComment(Integer.valueOf(comment.getParentId().toString()));
     }
 
-    public List<CommentDisDTO> selectByComment(Integer id,CommentTypeEnum commentTypeEnum) {
+    public List<CommentDisDTO> selectByComment(Integer id, CommentTypeEnum commentTypeEnum) {
         //跟据评论的评论人获取它的信息
         //获取评论信息的去掉重复后的评论人
-        List<Comment> comments = commentDAO.selectByComment(id,commentTypeEnum);
+        List<Comment> comments = commentDAO.selectByComment(id, commentTypeEnum);
         if (comments.size() == 0) {
             return new ArrayList<>();
         }

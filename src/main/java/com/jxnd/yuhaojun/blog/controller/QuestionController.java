@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class QuestionController {
@@ -44,6 +45,9 @@ public class QuestionController {
         //查询所有评论
         List<CommentDisDTO> commentDisDTOS = commentService.selectByComment(id, CommentTypeEnum.Question);
         model.addAttribute("commentDisDTOList", commentDisDTOS);
+        //查询相关主题
+        Set<QuestionDTO> questionDTOSet = myQuestionService.selectByTag(id);
+        model.addAttribute("questionDTOSet", questionDTOSet);
         return "myQuestion";
     }
 

@@ -36,4 +36,9 @@ public class CommentDAOImpl implements CommentDAO {
         List<Comment> list = mapper.selectByExample(commentExample);
         return list;
     }
+
+    @Override
+    public void updateLikeCount(Long parentId) {
+        mapper.updateLikeCount(parentId);
+    }
 }

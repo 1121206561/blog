@@ -11,4 +11,6 @@ public interface CommentDAO {
     Comment select(Long id);
 
     List<Comment> selectByComment(Integer id, CommentTypeEnum commentTypeEnum);
+
+    void updateLikeCount(Long parentId);
 }

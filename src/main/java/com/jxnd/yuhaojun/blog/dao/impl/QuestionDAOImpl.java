@@ -52,4 +52,9 @@ public class QuestionDAOImpl implements QuestionDAO {
     public void updateByComment(Integer id) {
         mapper.updateByComment(id);
     }
+
+    @Override
+    public List<Question> selectByTag(String tag) {
+        return mapper.selectByTag(tag);
+    }
 }

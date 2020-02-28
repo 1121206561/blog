@@ -66,6 +66,14 @@ body {
     padding: 14px 20px;
 }
 
+.question-related {
+    line-height: 20px;
+    font-size: 12px;
+    margin-left: 0px;
+    list-style: none;
+    padding-left: 5px;
+}
+
 .comment-sp {
     margin-top: 0;
 }
@@ -87,4 +95,8 @@ body {
 
 .menu .icon:hover {
     color: #499ef3;
+}
+
+.question-tag {
+    margin-right: 5px
 }

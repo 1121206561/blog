@@ -18,4 +18,6 @@ public interface QuestionDAO {
     void updateByView(Integer id);
 
     void updateByComment(Integer id);
+
+    List<Question> selectByTag(String tag);
 }

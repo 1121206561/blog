@@ -29,6 +29,7 @@ function comment(id, content, type) {
             if (response.code == 200) {
                 //隐藏该模块  一个坑:如何做到刷新并隐藏
                 $("#comment_section").hide();
+                window.location.reload();
             } else {
                 /*如果他是登录报错,就给一个是否登录的提示,如果是则进行登录*/
                 if (response.code == 2003) {
@@ -63,26 +64,57 @@ function collapseComments(e) {
     var collapse = e.getAttribute("data-collapse")
     //如果有则折叠
     if (collapse) {
-        //每次展示都会重新生成一个<div>所以每次折叠起来都要移除掉已经生成的
-        $("#qqq").remove();
         comments.removeClass("in");
         e.removeAttribute("data-collapse");
         e.classList.remove("active");
     } else {
+        //判断它的子元素是否有值,如果有则不进行查询
         //没有就打开
-        $.getJSON("/comments/" + id, function (data) {
-            var subCommentContainer = $('#comment-' + id);
-            $.each(data.data, function (index, comment) {
-                var c = $("<div/>", {
-                    "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp comments",
-                    "id": "qqq",
-                    html: comment.content
-                });
-                subCommentContainer.prepend(c);
-            });
+        var subCommentContainer = $('#comment-' + id);
+        if (subCommentContainer.children().length != 1) {
             comments.addClass("in");
             e.setAttribute("data-collapse", "in");
             e.classList.add("active");
-        });
+        } else {
+            $.getJSON("/comments/" + id, function (data) {
+                    $.each(data.data.reverse(), function (index, comment) {
+                        //字符串拼接
+                        var mediaLeftElement = $("<div/>", {
+                            "class": "media-left"
+                        }).append($("<img/>", {
+                            "class": "media-object img-rounded",
+                            "src": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg"
+                        }));
+                        var mediaBodyElement = $("<div/>", {
+                            "class": "media-body"
+                        }).append($("<h6/>", {
+                            "class": "media-heading",
+                            "html": comment.commentator
+                        })).append($("<div/>", {
+                            "html": comment.content
+                        })).append($("<div/>", {
+                                "class": "menu"
+                            }).append($("<span/>", {
+                                "class": "pull-right",
+                                "html": moment(comment.gmtCreator).format("YYYY-MM-DD")
+                            }))
+                        );
+
+                        var mediaElement = $("<div/>", {
+                            "class": "media",
+                        }).append(mediaLeftElement)
+                            .append(mediaBodyElement);
+
+                        var commentElement = $("<div/>", {
+                            "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp comments",
+                        }).append(mediaElement);
+                        subCommentContainer.prepend(commentElement);
+                    });
+                    comments.addClass("in");
+                    e.setAttribute("data-collapse", "in");
+                    e.classList.add("active");
+                }
+            );
+        }
     }
 }

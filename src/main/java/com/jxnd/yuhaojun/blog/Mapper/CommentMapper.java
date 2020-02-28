@@ -2,7 +2,9 @@ package com.jxnd.yuhaojun.blog.Mapper;
 
 import com.jxnd.yuhaojun.blog.model.Comment;
 import com.jxnd.yuhaojun.blog.model.CommentExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface CommentMapper {
@@ -93,4 +95,6 @@ public interface CommentMapper {
      * @mbg.generated Mon Feb 24 09:34:07 CST 2020
      */
     int updateByPrimaryKey(Comment record);
+
+    void updateLikeCount(Long id);
 }
