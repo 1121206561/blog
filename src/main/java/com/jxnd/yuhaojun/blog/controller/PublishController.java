@@ -1,6 +1,8 @@
 package com.jxnd.yuhaojun.blog.controller;
 
+import com.jxnd.yuhaojun.blog.coach.TagsCoach;
 import com.jxnd.yuhaojun.blog.dao.QuestionDAO;
+import com.jxnd.yuhaojun.blog.dto.TagsDTO;
 import com.jxnd.yuhaojun.blog.exception.CustomizeErrorCode;
 import com.jxnd.yuhaojun.blog.exception.CustomizeException;
 import com.jxnd.yuhaojun.blog.model.Question;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class PublishController {
@@ -20,7 +23,9 @@ public class PublishController {
     private QuestionDAO dao;
 
     @GetMapping("publish")
-    public String publish() {
+    public String publish(Model model) {
+        List<TagsDTO> tagsDTOList = TagsCoach.showTags();
+        model.addAttribute("tagsDTOList", tagsDTOList);
         return "publish";
     }
 
@@ -32,6 +37,8 @@ public class PublishController {
             model.addAttribute("error", "用户未登录");
             return "publish";
         }
+        List<TagsDTO> tagsDTOList = TagsCoach.showTags();
+        model.addAttribute("tagsDTOList", tagsDTOList);
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
@@ -46,6 +53,12 @@ public class PublishController {
         }
         if (tag == null || tag == "") {
             model.addAttribute("error", "标签不能为空");
+            return "publish";
+        }
+
+        boolean b = TagsCoach.isTags(tag);
+        if (!b) {
+            model.addAttribute("error", "标签不符合规范,请重新输入");
             return "publish";
         }
 

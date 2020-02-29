@@ -8,6 +8,7 @@
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="/css/blog.css">
+    <script src="/js/publish.js"></script>
 
 </head>
 <body>
@@ -33,7 +34,27 @@
                 <div class="form-group">
                     <label for="title">添加标签:</label>
                     <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag"
-                           placeholder="输入标签 以，隔开">
+                           placeholder="输入标签 以，隔开" onclick="selectShowTags()">
+
+                    <div class="publish-tab-tags" id="showTags">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" th:each="tags:${tagsDTOList}">
+                                <a th:href="${'#'+tags.categoryName}" aria-controls="home" role="tab" data-toggle="tab"
+                                   th:text="${tags.categoryName}"></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" th:id="${AllTag.categoryName}"
+                                 th:each="AllTag:${tagsDTOList}">
+                                <span class="label label-info" style="margin: 5px" th:each="selectTag:${AllTag.tags}">
+                                    <span class="glyphicon glyphicon-tags" onclick="selectTag(this)"
+                                          th:data-tag="${selectTag}" th:text="${selectTag}"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <span class="alert alert-danger" th:text="${error}" th:if="${error != null}"></span>
                 <button type="submit" class="btn btn-success btn-publish">发布</button>
