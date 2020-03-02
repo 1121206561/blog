@@ -28,6 +28,9 @@
                 <li th:if="${session.user!=null}">
                     <a href="/publish">发布</a>
                 </li>
+                <li>
+                    <a href="/profile/comments">通知 <span class="badge" style="background-color: red">42</span></a>
+                </li>
                 <!-- 点击登陆按钮跳转到Github验证页面  -->
                 <!-- 如果成功登录则出现个人信息-->
                 <li th:if="${session.user == null}"><a
@@ -39,7 +42,7 @@
                             class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">个人资料</a></li>
-                        <li><a href="/profile/messages">消息中心</a></li>
+                        <li><a href="/profile/questions">消息中心</a></li>
                         <li><a href="/logout">退出登录</a></li>
                     </ul>
                 </li>

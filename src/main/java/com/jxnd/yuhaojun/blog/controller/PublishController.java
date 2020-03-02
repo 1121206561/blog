@@ -86,6 +86,8 @@ public class PublishController {
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag", question.getTag());
         model.addAttribute("id", question.getId());
+        List<TagsDTO> tagsDTOList = TagsCoach.showTags();
+        model.addAttribute("tagsDTOList", tagsDTOList);
         return "publish";
     }
 }

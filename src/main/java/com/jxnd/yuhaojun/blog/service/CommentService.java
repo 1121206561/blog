@@ -3,11 +3,15 @@ package com.jxnd.yuhaojun.blog.service;
 import com.jxnd.yuhaojun.blog.Mapper.UserMapper;
 import com.jxnd.yuhaojun.blog.dao.CommentDAO;
 import com.jxnd.yuhaojun.blog.dao.QuestionDAO;
+import com.jxnd.yuhaojun.blog.dao.notificationDAO;
 import com.jxnd.yuhaojun.blog.dto.CommentDisDTO;
 import com.jxnd.yuhaojun.blog.enums.CommentTypeEnum;
+import com.jxnd.yuhaojun.blog.enums.NotificationEnum;
+import com.jxnd.yuhaojun.blog.enums.NotificationStatusEnum;
 import com.jxnd.yuhaojun.blog.exception.CustomizeErrorCode;
 import com.jxnd.yuhaojun.blog.exception.CustomizeException;
 import com.jxnd.yuhaojun.blog.model.Comment;
+import com.jxnd.yuhaojun.blog.model.Notification;
 import com.jxnd.yuhaojun.blog.model.Question;
 import com.jxnd.yuhaojun.blog.model.User;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +32,8 @@ public class CommentService {
     private QuestionDAO questionDAO;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private notificationDAO notificationDAO;
 
     @Transactional
     public void insert(Comment comment) {
@@ -44,6 +50,10 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
             commentDAO.insert(comment);
+            //增加通知
+            Notification notification = notice(comment, question.getCreator(), NotificationEnum.REPLAY_QUESSTION);
+            notificationDAO.insertNotification(notification);
+
             //直接评论的回复
         } else {
             Comment comment1 = commentDAO.select(comment.getParentId());
@@ -53,8 +63,22 @@ public class CommentService {
             commentDAO.insert(comment);
             //每次对评论的回复,会让点赞数+1'
             commentDAO.updateLikeCount(comment.getParentId());
+            //增加通知
+            Notification notification = notice(comment1, comment1.getCommentator().toString(), NotificationEnum.REPLAU_COMMENT);
+            notificationDAO.insertNotification(notification);
         }
         questionDAO.updateByComment(Integer.valueOf(comment.getParentId().toString()));
+    }
+
+    public Notification notice(Comment comment, String gmtCreator, NotificationEnum notificationEnum) {
+        Notification notification = new Notification();
+        notification.setNotifier(comment.getCommentator().toString());
+        notification.setOuterid(comment.getParentId());
+        notification.setReceiver(gmtCreator);
+        notification.setStatus(NotificationStatusEnum.NOT_READ.getStatus());
+        notification.setType(notificationEnum.getType());
+        notification.setGmtCreate(System.currentTimeMillis());
+        return notification;
     }
 
     public List<CommentDisDTO> selectByComment(Integer id, CommentTypeEnum commentTypeEnum) {
