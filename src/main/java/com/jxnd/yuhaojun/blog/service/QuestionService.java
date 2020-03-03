@@ -22,11 +22,19 @@ public class QuestionService {
     private UserDAO userDAO;
 
     public PaginationDTO select(Integer page, Integer size) {
+        Integer count = questionDAO.selectByCount();
+        int totalCount;
+        //计算总页数
+        if (count % size == 0) {
+            totalCount = count / size;
+        } else {
+            totalCount = count / size + 1;
+        }
         if (page < 1) {
             page = 1;
         }
-        if (page > 6) {
-            page = 6;
+        if (page > totalCount) {
+            page = totalCount;
         }
         Integer offset = (page - 1) * size;
         //查询出文章信息
@@ -43,8 +51,7 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestionDTOList(questionDTOList);
-        Integer count = questionDAO.selectByCount();
-        paginationDTO.setpagination(count, page, size);
+        paginationDTO.setpagination(totalCount, page);
         return paginationDTO;
     }
 }

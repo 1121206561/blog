@@ -2,7 +2,6 @@ package com.jxnd.yuhaojun.blog.controller;
 
 import com.jxnd.yuhaojun.blog.dto.NotificationDTO;
 import com.jxnd.yuhaojun.blog.dto.PaginationDTO;
-import com.jxnd.yuhaojun.blog.model.Notification;
 import com.jxnd.yuhaojun.blog.model.User;
 import com.jxnd.yuhaojun.blog.service.NotificationService;
 import com.jxnd.yuhaojun.blog.service.ProfileService;
@@ -45,8 +44,6 @@ public class ProfileController {
             Set<NotificationDTO> notificationDTOSet = notificationService.selectByUser(userName.getLogin());
             model.addAttribute("notificationDTOSet", notificationDTOSet);
         }
-        Long Count = notificationService.selectByStatus();
-        model.addAttribute("count",Count);
         return "profile";
     }
 }

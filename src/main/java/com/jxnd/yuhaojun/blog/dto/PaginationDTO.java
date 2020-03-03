@@ -17,14 +17,9 @@ public class PaginationDTO {
     private Integer totalCount;
     private List<Integer> pages = new ArrayList<>();
 
-    public void setpagination(Integer count, Integer page, Integer size) {
+    public void setpagination(int totalCount, Integer page) {
         this.page = page;
-        //计算总页数
-        if (count % size == 0) {
-            totalCount = count / size;
-        } else {
-            totalCount = count / size + 1;
-        }
+        this.totalCount = totalCount;
         //计算分页框
         pages.add(page);
         for (int i = 1; i <= 3; i++) {

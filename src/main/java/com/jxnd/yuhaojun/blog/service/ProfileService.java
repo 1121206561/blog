@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-   @Service
+
+@Service
 public class ProfileService {
     @Autowired
     private ProfileDAO profileDAO;
@@ -20,11 +21,19 @@ public class ProfileService {
     private UserDAO userDAO;
 
     public PaginationDTO select(Integer page, Integer size, String creator) {
+        Integer count = profileDAO.selectByCountCreator(creator);
+        int totalCount;
+        //计算总页数
+        if (count % size == 0) {
+            totalCount = count / size;
+        } else {
+            totalCount = count / size + 1;
+        }
         if (page < 1) {
             page = 1;
         }
-        if (page > 5) {
-            page = 5;
+        if (page > totalCount) {
+            page = totalCount;
         }
         Integer offset = (page - 1) * size;
         //查询出文章信息
@@ -41,8 +50,7 @@ public class ProfileService {
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestionDTOList(questionDTOList);
-        Integer count = profileDAO.selectByCountCreator(creator);
-        paginationDTO.setpagination(count, page, size);
+        paginationDTO.setpagination(totalCount, page);
         return paginationDTO;
     }
 }

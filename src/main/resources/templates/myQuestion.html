@@ -5,11 +5,15 @@
     <title>我的提问</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+   <link rel="stylesheet" href="/editormd/css/editormd.preview.css"/>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="/css/blog.css">
     <script src="/js/comment.js"></script>
     <script src="/js/moment.js"></script>
+    <script src="/editormd/editormd.js"></script>
+    <script src="/editormd/lib/marked.min.js"></script>
+    <script src="/editormd/lib/prettify.min.js"></script>
 
 </head>
 <body>
@@ -18,14 +22,24 @@
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
-                <h4><span th:text="${questionDTO.title}"></span></h4>
+                <h2><span th:text="${questionDTO.title}"></span></h2>
                 <span class="text-desc">
                 作者: <span th:text="${questionDTO.user.login}"></span>
                 发布时间: <span th:text="${#dates.format(questionDTO.gmt_create,'dd MMMM yyyy')}"></span>
                 阅读数: <span th:text="${questionDTO.view_count}"></span>
             </span>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${questionDTO.description}"></div>
+
+                <!-- 经过markdown编辑把内容复原-->
+                <div id="test-markdown-view" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <textarea style="display:none;" th:text="${questionDTO.description}"></textarea>
+                </div>
+                <script type="text/javascript">
+                    $(function() {
+                        var testView = editormd.markdownToHTML("test-markdown-view", {});
+                    });
+                </script>
+
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px; margin-bottom: 1px;">
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

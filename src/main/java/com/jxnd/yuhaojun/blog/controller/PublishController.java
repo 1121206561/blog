@@ -39,6 +39,7 @@ public class PublishController {
         }
         List<TagsDTO> tagsDTOList = TagsCoach.showTags();
         model.addAttribute("tagsDTOList", tagsDTOList);
+        model.addAttribute("id", id);
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);

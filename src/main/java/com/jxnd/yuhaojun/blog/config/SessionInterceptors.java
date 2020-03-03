@@ -2,6 +2,7 @@ package com.jxnd.yuhaojun.blog.config;
 
 import com.jxnd.yuhaojun.blog.dao.UserDAO;
 import com.jxnd.yuhaojun.blog.model.User;
+import com.jxnd.yuhaojun.blog.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 public class SessionInterceptors implements HandlerInterceptor {
     @Autowired
     private UserDAO dao;
+    @Autowired
+    private NotificationService notificationService;
 
     //拦截器对规定的网页访问时进行规定的处理
     @Override
@@ -28,6 +31,8 @@ public class SessionInterceptors implements HandlerInterceptor {
                     User user = dao.select(token);
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
+                        Long Count = notificationService.selectByStatus();
+                        request.getSession().setAttribute("count",Count);
                     }
                     break;
                 }

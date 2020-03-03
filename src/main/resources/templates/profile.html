@@ -98,7 +98,7 @@
                    th:class="${section == 'questions'}? 'active list-group-item': 'list-group-item'">我的问题</a>
                 <a href="/profile/comments"
                    th:class="${section == 'comments'}? 'active list-group-item': 'list-group-item'">最新回复<span
-                        class="badge" th:text="${count}"></span></a>
+                        class="badge" th:text="${session.count}"></span></a>
             </div>
         </div>
     </div>

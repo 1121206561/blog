@@ -2,16 +2,15 @@ package com.jxnd.yuhaojun.blog.dao.impl;
 
 import com.jxnd.yuhaojun.blog.Mapper.NotificationMapper;
 import com.jxnd.yuhaojun.blog.dao.notificationDAO;
-import com.jxnd.yuhaojun.blog.enums.NotificationEnum;
 import com.jxnd.yuhaojun.blog.enums.NotificationStatusEnum;
 import com.jxnd.yuhaojun.blog.model.Notification;
 import com.jxnd.yuhaojun.blog.model.NotificationExample;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 public class NotificationDAOImpl implements notificationDAO {
     @Autowired
     private NotificationMapper notificationMapper;
@@ -26,6 +25,7 @@ public class NotificationDAOImpl implements notificationDAO {
     public List<Notification> selectByUser(String user) {
         NotificationExample notificationExample = new NotificationExample();
         notificationExample.createCriteria().andReceiverEqualTo(user);
+        notificationExample.setOrderByClause("gmt_create desc");
         List<Notification> notificationList = notificationMapper.selectByExample(notificationExample);
         return notificationList;
     }
