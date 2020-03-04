@@ -5,6 +5,11 @@ Github:
   Client_id: 1885fcec32c1656b5e00
   Client_secret: e88e7999cebe9defbf3018d9c390d128308d3aa3
   Redirect_uri: http://localhost:8887/callback
+TengXun:
+  Cos_secretid: AKID3uWnAHGl7G9rMbCNsSpxsZ1D9pIYtIm0
+  Cos_secretkey: 81gCxYzA6nEPN7bpnWrwlNnx50g6GAsM
+  Cos_region: ap-chengdu
+  BucketName: blog-1301453407
 
 spring:
   datasource:
