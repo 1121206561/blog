@@ -10,7 +10,6 @@ import com.jxnd.yuhaojun.blog.model.Notification;
 import com.jxnd.yuhaojun.blog.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -38,9 +37,8 @@ public class NotificationController {
             return "redirect:/MyQuestion/" + notification.getOuterid();
         } else {
             Comment commentOwn = commentDAO.select(notification.getOuterid());
-            Comment commentParents = commentDAO.select(commentOwn.getParentId());
             notificationDAO.updateByStatus(notification);
-            return "redirect:/MyQuestion/" + commentParents.getParentId();
+            return "redirect:/MyQuestion/" + commentOwn.getParentId();
         }
     }
 }

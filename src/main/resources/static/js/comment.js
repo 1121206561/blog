@@ -83,7 +83,7 @@ function collapseComments(e) {
                             "class": "media-left"
                         }).append($("<img/>", {
                             "class": "media-object img-rounded",
-                            "src": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg"
+                            "src": comment.user.avatar_url
                         }));
                         var mediaBodyElement = $("<div/>", {
                             "class": "media-body"

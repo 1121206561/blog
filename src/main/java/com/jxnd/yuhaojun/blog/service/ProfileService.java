@@ -29,11 +29,11 @@ public class ProfileService {
         } else {
             totalCount = count / size + 1;
         }
-        if (page < 1) {
-            page = 1;
-        }
         if (page > totalCount) {
             page = totalCount;
+        }
+        if (page < 1) {
+            page = 1;
         }
         Integer offset = (page - 1) * size;
         //查询出文章信息

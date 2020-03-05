@@ -31,7 +31,7 @@ public class SessionInterceptors implements HandlerInterceptor {
                     User user = dao.select(token);
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
-                        Long Count = notificationService.selectByStatus();
+                        Long Count = notificationService.selectByStatus(user.getLogin());
                         request.getSession().setAttribute("count",Count);
                     }
                     break;

@@ -20,9 +20,7 @@
                 <div class="media" th:each="question:${paginationDTO.questionDTOList}">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-rounded"
-                                 src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg">
-                            <!--th:src="${question.user.avatar_url}"-->
+                            <img class="media-object img-rounded" th:src="${question.user.avatar_url}">
                         </a>
                     </div>
                     <div class="media-body">
@@ -72,7 +70,7 @@
                  th:each="notificationDTO:${notificationDTOSet}" th:if="${section == 'comments'}">
                 <div class="media-left">
                     <img class="media-object img-rounded" style="display:inline-block;width: 40px;height: 50px;"
-                    src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg">
+                   th:src="${notificationDTO.user.avatar_url}">
                     <span th:text="${notificationDTO.notifier}" class="media-heading"></span>
                     <span th:if="${notificationDTO.type == 1}">
                     评论了我的问题

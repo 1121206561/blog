@@ -66,7 +66,7 @@
                         <div class="media-left">
                             <a href="#">
                                 <img class="media-object img-rounded"
-                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg">
+                                     th:src="${comment.user.avatar_url}">
                             </a>
                         </div>
                         <div class="media-body">
@@ -109,12 +109,12 @@
                         <div class="media-left">
                             <a href="#">
                                 <img class="media-object img-rounded"
-                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg">
+                                    th:src="${session.user != null ? session.user.avatar_url : '/img/timg.png'}">
                             </a>
                         </div>
                         <div class="media-body">
                             <h6 class="media-heading">
-                                <span th:text="${questionDTO.creator}"></span>
+                                <span th:text="${session.user != null ? session.user.login : '匿名头像'}"></span>
                             </h6>
                         </div>
                         <!--用Js的点击事件方式,把传递的值转换成JSON格式发送给Controller-->
@@ -133,7 +133,7 @@
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object img-circle"
-                                 src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582001655214&di=46cb0785e1e4d6f8baca9e6e994ae910&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Fface%2F58ce05426e9e027ab8a7e67966ecdb4cb1f570ef.jpg">
+                                 th:src="${questionDTO.user.avatar_url}">
                         </a>
                     </div>
                     <div class="media-body">

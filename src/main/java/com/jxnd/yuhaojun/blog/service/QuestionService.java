@@ -6,6 +6,7 @@ import com.jxnd.yuhaojun.blog.dto.PaginationDTO;
 import com.jxnd.yuhaojun.blog.dto.QuestionDTO;
 import com.jxnd.yuhaojun.blog.model.Question;
 import com.jxnd.yuhaojun.blog.model.User;
+import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,13 @@ public class QuestionService {
     @Autowired
     private UserDAO userDAO;
 
-    public PaginationDTO select(Integer page, Integer size) {
-        Integer count = questionDAO.selectByCount();
+    public PaginationDTO select(String seach, Integer page, Integer size) {
+        Integer count;
+        if (seach == null || seach.trim().equals("")) {
+            count = questionDAO.selectByCount();
+        } else {
+            count = questionDAO.selectByCountSeach(seach);
+        }
         int totalCount;
         //计算总页数
         if (count % size == 0) {
@@ -30,15 +36,20 @@ public class QuestionService {
         } else {
             totalCount = count / size + 1;
         }
-        if (page < 1) {
-            page = 1;
-        }
         if (page > totalCount) {
             page = totalCount;
         }
+        if (page < 1) {
+            page = 1;
+        }
         Integer offset = (page - 1) * size;
+        List<Question> list;
         //查询出文章信息
-        List<Question> list = questionDAO.select(offset, size);
+        if (seach == null || seach.trim().equals("")) {
+            list = questionDAO.select(offset, size);
+        } else {
+            list = questionDAO.selectBySeach(seach, offset, size);
+        }
         //文章信息和用户信息包装起来
         List<QuestionDTO> questionDTOList = new ArrayList<QuestionDTO>();
         //查询出来的信息和分页信息包装起来

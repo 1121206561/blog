@@ -64,7 +64,7 @@ public class CommentService {
             //每次对评论的回复,会让点赞数+1'
             commentDAO.updateLikeCount(comment.getParentId());
             //增加通知
-            Notification notification = notice(comment1, comment1.getCommentator().toString(), NotificationEnum.REPLAU_COMMENT);
+            Notification notification = notice(comment, comment1.getCommentator(), NotificationEnum.REPLAU_COMMENT);
             notificationDAO.insertNotification(notification);
         }
         questionDAO.updateByComment(Integer.valueOf(comment.getParentId().toString()));
@@ -72,10 +72,14 @@ public class CommentService {
 
     public Notification notice(Comment comment, String gmtCreator, NotificationEnum notificationEnum) {
         Notification notification = new Notification();
-        notification.setNotifier(comment.getCommentator().toString());
+        notification.setNotifier(comment.getCommentator());
         notification.setOuterid(comment.getParentId());
         notification.setReceiver(gmtCreator);
-        notification.setStatus(NotificationStatusEnum.NOT_READ.getStatus());
+        if (notification.getNotifier().equals(notification.getReceiver())) {
+            notification.setStatus(NotificationStatusEnum.READ.getStatus());
+        } else {
+            notification.setStatus(NotificationStatusEnum.NOT_READ.getStatus());
+        }
         notification.setType(notificationEnum.getType());
         notification.setGmtCreate(System.currentTimeMillis());
         return notification;
@@ -88,10 +92,10 @@ public class CommentService {
         if (comments.size() == 0) {
             return new ArrayList<>();
         }
-        Set<Integer> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
+        Set<String> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
         List<User> users = new ArrayList<>();
-        for (Integer commentator : commentators) {
-            users.add(userMapper.selectByCreator(commentator.toString()));
+        for (String commentator : commentators) {
+            users.add(userMapper.selectByCreator(commentator));
         }
         List<CommentDisDTO> commentDisDTOList = new ArrayList<>();
         for (Comment comment : comments) {

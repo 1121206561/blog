@@ -31,9 +31,9 @@ public class NotificationDAOImpl implements notificationDAO {
     }
 
     @Override
-    public Long selectByStatus() {
+    public Long selectByStatus(String login) {
         NotificationExample notificationExample = new NotificationExample();
-        notificationExample.createCriteria().andStatusEqualTo(1);
+        notificationExample.createCriteria().andStatusEqualTo(1).andReceiverEqualTo(login);
         return notificationMapper.countByExample(notificationExample);
     }
 

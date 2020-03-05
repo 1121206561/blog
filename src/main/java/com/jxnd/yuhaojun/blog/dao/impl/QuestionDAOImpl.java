@@ -57,4 +57,14 @@ public class QuestionDAOImpl implements QuestionDAO {
     public List<Question> selectByTag(String tag) {
         return mapper.selectByTag(tag);
     }
+
+    @Override
+    public List<Question> selectBySeach(String seach, Integer offset, Integer size) {
+        return mapper.selectBySeach(seach, offset, size);
+    }
+
+    @Override
+    public Integer selectByCountSeach(String seach) {
+        return mapper.selectByCountSeach(seach);
+    }
 }

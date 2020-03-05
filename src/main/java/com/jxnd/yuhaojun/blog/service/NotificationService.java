@@ -1,6 +1,5 @@
 package com.jxnd.yuhaojun.blog.service;
 
-import com.jxnd.yuhaojun.blog.Mapper.UserMapper;
 import com.jxnd.yuhaojun.blog.dao.CommentDAO;
 import com.jxnd.yuhaojun.blog.dao.QuestionDAO;
 import com.jxnd.yuhaojun.blog.dao.UserDAO;
@@ -31,25 +30,28 @@ public class NotificationService {
 
     public Set<NotificationDTO> selectByUser(String user) {
         List<Notification> notificationList = notificationDAO.selectByUser(user);
+
         Set<NotificationDTO> notificationDTOSet = new HashSet<>();
         for (Notification notification : notificationList) {
-            NotificationDTO notificationDTO = new NotificationDTO();
-            BeanUtils.copyProperties(notification, notificationDTO);
-            User user1 = userDAO.selectByCreator(notification.getReceiver());
-            notificationDTO.setUser(user1);
-            if (notification.getType() == 1) {
-                Question question = questionDAO.selectById(Integer.valueOf(notification.getOuterid().toString()));
-                notificationDTO.setQuestion(question);
-            } else {
-                Comment comment = commentDAO.select(notification.getOuterid());
-                notificationDTO.setComment(comment);
+            if (!notification.getNotifier().equals(notification.getReceiver())) {
+                NotificationDTO notificationDTO = new NotificationDTO();
+                BeanUtils.copyProperties(notification, notificationDTO);
+                User user1 = userDAO.selectByCreator(notification.getNotifier());
+                notificationDTO.setUser(user1);
+                if (notification.getType() == 1) {
+                    Question question = questionDAO.selectById(Integer.valueOf(notification.getOuterid().toString()));
+                    notificationDTO.setQuestion(question);
+                } else {
+                    Comment comment = commentDAO.select(notification.getOuterid());
+                    notificationDTO.setComment(comment);
+                }
+                notificationDTOSet.add(notificationDTO);
             }
-            notificationDTOSet.add(notificationDTO);
         }
         return notificationDTOSet;
     }
 
-    public Long selectByStatus() {
-        return notificationDAO.selectByStatus();
+    public Long selectByStatus(String Login) {
+        return notificationDAO.selectByStatus(Login);
     }
 }

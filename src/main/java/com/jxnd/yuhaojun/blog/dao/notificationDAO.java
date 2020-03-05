@@ -9,7 +9,7 @@ public interface notificationDAO {
 
     List<Notification> selectByUser(String user);
 
-    Long selectByStatus();
+    Long selectByStatus(String Login);
 
     Notification selectById(Long id);
 

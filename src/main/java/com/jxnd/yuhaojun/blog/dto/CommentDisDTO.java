@@ -8,7 +8,7 @@ public class CommentDisDTO {
     private Long id;
     private Long parentId;
     private Integer type;
-    private Integer commentator;
+    private String commentator;
     private Long gmtCreator;
     private Long gmtModified;
     private Long likeCount;

@@ -40,4 +40,10 @@ public interface QuestionMapper {
 
     @Select("SELECT * FROM question WHERE tag LIKE '%' #{tag} '%'")
     List<Question> selectByTag(String tag);
+
+    @Select("SELECT * FROM question WHERE title LIKE '%' #{seach} '%' ORDER BY gmt_create desc limit #{offset},#{size}")
+    List<Question> selectBySeach(String seach, Integer offset, Integer size);
+
+    @Select("SELECT COUNT(1) FROM question WHERE title LIKE '%' #{seach} '%'")
+    Integer selectByCountSeach(String seach);
 }

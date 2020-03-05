@@ -20,4 +20,8 @@ public interface QuestionDAO {
     void updateByComment(Integer id);
 
     List<Question> selectByTag(String tag);
+
+    List<Question> selectBySeach(String seach, Integer offset, Integer size);
+
+    Integer selectByCountSeach(String seach);
 }
