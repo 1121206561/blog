@@ -28,10 +28,16 @@ public class ProfileController {
             model.addAttribute("sectionName", "我的问题");
             model.addAttribute("section", "questions");
             User user = (User) request.getSession().getAttribute("user");
+            if (user == null) {
+                return "redirect:/index";
+            }
             String creator = user.getLogin();
             PaginationDTO paginationDTO = profileService.select(page, size, creator);
             model.addAttribute("paginationDTO", paginationDTO);
         } else if ("messages".equals(action)) {
+            if (request.getSession().getAttribute("user") == null) {
+                return "redirect:/index";
+            }
             model.addAttribute("sectionName", "消息中心");
             model.addAttribute("section", "messages");
         } else if ("comments".equals(action)) {
@@ -39,7 +45,7 @@ public class ProfileController {
             model.addAttribute("section", "comments");
             User userName = (User) request.getSession().getAttribute("user");
             if (request.getSession().getAttribute("user") == null) {
-                return "index";
+                return "redirect:/index";
             }
             Set<NotificationDTO> notificationDTOSet = notificationService.selectByUser(userName.getLogin());
             model.addAttribute("notificationDTOSet", notificationDTOSet);

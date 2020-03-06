@@ -21,3 +21,14 @@ mybatis:
   type-aliases-package: com.jxnd.yuhaojun.blog.model
   mapper-locations: classpath:mapper/*.xml
 
+logging:
+  file:
+    max-size: 100MB
+    max-history: 15
+    path: logs/blog.log
+  level:
+    root: info
+    com:
+      jxnd:
+        yuhaojun:
+          blog: debug

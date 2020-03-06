@@ -41,7 +41,9 @@ public class MyQuestionService {
                 BeanUtils.copyProperties(question1, questionDTO);
                 User user = userDAO.selectByCreator(question1.getCreator());
                 questionDTO.setUser(user);
-                questionDTOSet.add(questionDTO);
+                if (questionDTO.getId() != id) {
+                    questionDTOSet.add(questionDTO);
+                }
             }
         }
         return questionDTOSet;

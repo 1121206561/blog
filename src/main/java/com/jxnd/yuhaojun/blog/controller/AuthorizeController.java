@@ -4,6 +4,7 @@ import com.jxnd.yuhaojun.blog.dto.AccessTokenDTO;
 import com.jxnd.yuhaojun.blog.dto.GithubUserDTO;
 import com.jxnd.yuhaojun.blog.provider.GithubProvider;
 import com.jxnd.yuhaojun.blog.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
+@Slf4j
 public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
@@ -43,6 +45,7 @@ public class AuthorizeController {
             userService.service(githubUserDTO, response);
             return "redirect:/index";
         } else {
+            log.error("callback get github error {}", githubUserDTO);
             //登陆失败
             return "redirect:/index";
         }
