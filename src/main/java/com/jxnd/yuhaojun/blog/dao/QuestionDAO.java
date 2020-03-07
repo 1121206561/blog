@@ -24,4 +24,12 @@ public interface QuestionDAO {
     List<Question> selectBySeach(String seach, Integer offset, Integer size);
 
     Integer selectByCountSeach(String seach);
+
+    Integer selectByCountTag(String hotTag);
+
+    Integer selectByCountSeachTag(String seach, String hotTag);
+
+    List<Question> selectByLimitTag(Integer offset, Integer size, String hotTag);
+
+    List<Question> selectByLimitSeachTag(Integer offset, Integer size, String hotTag, String seach);
 }

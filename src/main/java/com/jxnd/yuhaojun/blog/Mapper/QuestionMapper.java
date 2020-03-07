@@ -46,4 +46,16 @@ public interface QuestionMapper {
 
     @Select("SELECT COUNT(1) FROM question WHERE title LIKE '%' #{seach} '%'")
     Integer selectByCountSeach(String seach);
+
+    @Select("SELECT COUNT(1) FROM question WHERE tag LIKE '%' #{hotTag} '%'")
+    Integer selectByCountTag(String hotTag);
+
+    @Select("SELECT COUNT(1) FROM question WHERE title LIKE '%' #{seach} '%' AND tag = #{hotTag}")
+    Integer selectByCountSeachTag(String seach, String hotTag);
+
+    @Select("SELECT * FROM question WHERE tag LIKE '%' #{hotTag} '%' ORDER BY gmt_create desc limit #{offset},#{size}")
+    List<Question> seletByLimitTag(Integer offset, Integer size, String hotTag);
+
+    @Select("SELECT * FROM question WHERE title LIKE '%' #{seach} '%' AND tag LIKE '%' #{hotTag} '%' ORDER BY gmt_create desc limit #{offset},#{size}")
+    List<Question> selectByLimitSeachTag(Integer offset, String seach, Integer size, String hotTag);
 }

@@ -22,12 +22,20 @@ public class QuestionService {
     @Autowired
     private UserDAO userDAO;
 
-    public PaginationDTO select(String seach, Integer page, Integer size) {
+    public PaginationDTO select(String HotTag, String seach, Integer page, Integer size) {
         Integer count;
         if (seach == null || seach.trim().equals("")) {
-            count = questionDAO.selectByCount();
+            if (HotTag == null || HotTag.trim().equals("")) {
+                count = questionDAO.selectByCount();
+            } else {
+                count = questionDAO.selectByCountTag(HotTag);
+            }
         } else {
-            count = questionDAO.selectByCountSeach(seach);
+            if (HotTag == null || HotTag.trim().equals("")) {
+                count = questionDAO.selectByCountSeach(seach);
+            } else {
+                count = questionDAO.selectByCountSeachTag(seach, HotTag);
+            }
         }
         int totalCount;
         //计算总页数
@@ -46,9 +54,17 @@ public class QuestionService {
         List<Question> list;
         //查询出文章信息
         if (seach == null || seach.trim().equals("")) {
-            list = questionDAO.select(offset, size);
+            if (HotTag == null || HotTag.trim().equals("")) {
+                list = questionDAO.select(offset, size);
+            } else {
+                list = questionDAO.selectByLimitTag(offset, size, HotTag);
+            }
         } else {
-            list = questionDAO.selectBySeach(seach, offset, size);
+            if (HotTag == null || HotTag.trim().equals("")) {
+                list = questionDAO.selectBySeach(seach, offset, size);
+            } else {
+                list = questionDAO.selectByLimitSeachTag(offset, size, HotTag, seach);
+            }
         }
         //文章信息和用户信息包装起来
         List<QuestionDTO> questionDTOList = new ArrayList<QuestionDTO>();

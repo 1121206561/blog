@@ -19,6 +19,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left" href="/index" method="get">
                 <div class="form-group">
+                    <input type="hidden" name="HotTag" th:value="${tag}">
                     <input type="text" class="form-control" placeholder="搜索问题" name="seach">
                 </div>
                 <button type="submit" class="btn btn-default">搜索</button>
@@ -29,7 +30,8 @@
                     <a href="/publish">发布</a>
                 </li>
                 <li th:if="${session.user!=null}">
-                    <a href="/profile/comments">通知 <span class="badge" style="background-color: red" th:text="${session.count}"></span></a>
+                    <a href="/profile/comments">通知 <span class="badge" style="background-color: red"
+                                                         th:text="${session.count}"></span></a>
                 </li>
                 <!-- 点击登陆按钮跳转到Github验证页面  -->
                 <!-- 如果成功登录则出现个人信息-->
