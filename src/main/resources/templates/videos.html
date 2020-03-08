@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>博客社区</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/blog.css">
+</head>
+<body>
+<div th:insert="navigation :: nav"></div>
+<div class="container-fluid main">
+    <div class="row videos">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" th:each="videos : ${videosList}">
+            <a th:href="@{/video(aid=${videos.aid})}"><img th:src="${videos.img}" alt=""></a>
+        </div>
+    </div>
+</div>
+<div th:insert="footer :: div"></div>
+</body>
+</html>

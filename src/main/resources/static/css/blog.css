@@ -4,7 +4,9 @@ body {
 
 .main {
     background-color: white;
-    margin: 30px;
+    margin-top: 50px;
+    margin-left: 210px;
+    margin-right: 210px;
 }
 
 .btn-publish {
@@ -123,4 +125,14 @@ body {
     font-size: 18px;
     color: #fff;
     border-radius: 4px;
+}
+
+.videos {
+    padding: 20px;
+}
+
+.videos img {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 30px;
 }

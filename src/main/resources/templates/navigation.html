@@ -24,6 +24,12 @@
                 </div>
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/videos"
+                       onclick="gtag('event','click',{'event_category':'LINK','event_label':'VIDEO','transport_type':'nav'})">火影视频</a>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- 点击发布按钮跳转到发布帖子页面  -->
                 <li th:if="${session.user!=null}">
