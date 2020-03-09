@@ -28,7 +28,3 @@ logging:
     path: logs/blog.log
   level:
     root: info
-    com:
-      jxnd:
-        yuhaojun:
-          blog: debug

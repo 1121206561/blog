@@ -8,4 +8,6 @@ public interface VideosDAO {
     List<Videos> selectALL();
 
     Videos selectByAid(Long aid);
+
+    void insert(Videos videos);
 }

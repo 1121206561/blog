@@ -25,4 +25,9 @@ public class VideosDAOImpl implements VideosDAO {
         videosExample.createCriteria().andAidEqualTo(aid);
         return videosMapper.selectByExample(videosExample).get(0);
     }
+
+    @Override
+    public void insert(Videos videos) {
+        videosMapper.insert(videos);
+    }
 }
