@@ -21,6 +21,9 @@
                             aria-haspopup="true" aria-expanded="false">
                         视频选集<span class="caret"></span>
                     </button>
+                    <span th:each="ad:${session.ads}" th:if="${ad.pos == 'HEAD'}" style="margin-left: 60px;">
+                        <a th:href="${ad.url}" target="_blank">更多精彩内容点击此处链接</a>
+                    </span>
                     <ul class="dropdown-menu">
                         <li th:each="i:${#numbers.sequence(1,PageCount)}"><a
                                 th:href="@{/video(page=${i},aid=${aid})}" style="color:#6c71c4;">P<span
@@ -87,7 +90,7 @@
             <h3>弹幕区</h3>
             <input type="text" id="videoBarrage_description"/>
             <button type="button" class="btn btn-info" onclick="videoBarragePost()">发送弹幕</button>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"style="margin-top: 10px;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;">
             <span class="videoBarrage" th:each="videoComment:${videoCommentList}" th:if="${videoComment.type == 2}"
                   th:text=" ${videoComment.content}"></span>
             </div>

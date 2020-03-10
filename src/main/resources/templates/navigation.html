@@ -29,6 +29,12 @@
                     <a href="/videos"
                        onclick="gtag('event','click',{'event_category':'LINK','event_label':'VIDEO','transport_type':'nav'})">火影视频</a>
                 </li>
+                <li th:each="ad:${session.ads}">
+                    <a th:if="${ad.pos == 'NAV'}" th:href="${ad.url}" target="_blank"
+                       onclick="gtag('event','click',{'event_category':'LINK','event_label':'VIDEO','transport_type':'nav'})"
+                       style="padding: 2px">
+                        <img th:src="${ad.image}" style="width: 71px;height: 40px;margin-left: 10px;"></a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- 点击发布按钮跳转到发布帖子页面  -->

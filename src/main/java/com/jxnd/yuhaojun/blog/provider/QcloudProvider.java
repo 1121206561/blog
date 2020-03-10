@@ -12,6 +12,7 @@ import com.qcloud.cos.region.Region;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;

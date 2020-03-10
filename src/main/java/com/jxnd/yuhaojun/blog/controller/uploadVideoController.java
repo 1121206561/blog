@@ -1,33 +1,33 @@
 package com.jxnd.yuhaojun.blog.controller;
 
 import com.jxnd.yuhaojun.blog.dao.VideosDAO;
+import com.jxnd.yuhaojun.blog.dto.videoDTO;
 import com.jxnd.yuhaojun.blog.model.Videos;
+import com.jxnd.yuhaojun.blog.provider.QcloudProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Random;
-import java.util.UUID;
 
 @Controller
 public class uploadVideoController {
     @Autowired
     private VideosDAO videosDAO;
+    @Autowired
+    private QcloudProvider qcloudProvider;
 
-    @GetMapping("/uploadVideo")
-    public String uploadVideo(Long roomNumber, Integer totalCount) throws Exception {
+    @RequestMapping("/uploadVideo")
+    public String uploadVideo(videoDTO videoDTO) throws IOException {
+        MultipartFile file = videoDTO.getImg_file();
+        String url = qcloudProvider.FileToCos(file.getInputStream());
         Videos videos = new Videos();
+        videos.setImg(url);
+        videos.setPagecount(videoDTO.getTotalCount());
+        videos.setAid(videoDTO.getRoomNumber());
         videos.setGmtCreate(System.currentTimeMillis());
         videos.setGmtModified(videos.getGmtCreate());
-        videos.setAid(roomNumber);
-        videos.setPagecount(totalCount);
-        videos.setImg("https://random.52ecy.cn/randbg.php");
         videosDAO.insert(videos);
         return "redirect:/videos";
     }

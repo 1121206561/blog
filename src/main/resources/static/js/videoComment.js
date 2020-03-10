@@ -43,3 +43,13 @@ function comment(aid, content, type) {
         dataType: "json"
     });
 }
+
+
+function showImg() {
+    var file = document.getElementById('img_file').files[0];
+    var re = new FileReader();
+    re.readAsDataURL(file);
+    re.onload = function (re) {
+        $('#img_id').attr("src", re.target.result);
+    }
+}
