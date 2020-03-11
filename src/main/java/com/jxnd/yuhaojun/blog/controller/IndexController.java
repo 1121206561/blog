@@ -2,7 +2,7 @@ package com.jxnd.yuhaojun.blog.controller;
 
 import com.jxnd.yuhaojun.blog.coach.HotTagsTasksCoach;
 import com.jxnd.yuhaojun.blog.dto.PaginationDTO;
-import com.jxnd.yuhaojun.blog.schedul.HotTagTasks;
+import com.jxnd.yuhaojun.blog.dto.QuestionDTO;
 import com.jxnd.yuhaojun.blog.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class IndexController {
     private HotTagsTasksCoach hotTagsTasksCoach;
 
     @GetMapping("/index")
-    public String hello(String HotTag, String seach, Model model, @RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "size", defaultValue = "5") Integer size) {
+    public String hello(HttpServletRequest request, String HotTag, String seach, Model model, @RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "size", defaultValue = "5") Integer size) {
         PaginationDTO paginationDTO = questionService.select(HotTag, seach, page, size);
         model.addAttribute("paginationDTO", paginationDTO);
         model.addAttribute("seach", seach);
@@ -31,5 +31,13 @@ public class IndexController {
         model.addAttribute("HotTaglist", HotTaglist);
         model.addAttribute("tag", HotTag);
         return "index";
+    }
+
+    @GetMapping("/pattern")
+    public String pattern(Model model, String Nav, @RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "size", defaultValue = "5") Integer size) {
+        PaginationDTO paginationDTO = questionService.selectPlus(Nav, page, size);
+        model.addAttribute("paginationDTO", paginationDTO);
+        model.addAttribute("Nav", Nav);
+        return "indexPlus";
     }
 }

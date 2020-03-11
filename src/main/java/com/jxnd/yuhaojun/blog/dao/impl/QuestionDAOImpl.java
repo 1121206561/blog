@@ -87,4 +87,34 @@ public class QuestionDAOImpl implements QuestionDAO {
     public List<Question> selectByLimitSeachTag(Integer offset, Integer size, String hotTag, String seach) {
         return mapper.selectByLimitSeachTag(offset, seach, size, hotTag);
     }
+
+    @Override
+    public List<Question> selectPlusZero(Integer offset, Integer size) {
+        return mapper.selectPlusZero(offset,size);
+    }
+
+    @Override
+    public List<Question> selectPlusThirty(Integer offset, Integer size) {
+        return mapper.selectPlusThirty(System.currentTimeMillis(),offset,size);
+    }
+
+    @Override
+    public List<Question> selectPlusSeven(Integer offset, Integer size) {
+        return mapper.selectPlusSeven(System.currentTimeMillis(),offset,size);
+    }
+
+    @Override
+    public Integer selectByCountZero() {
+        return mapper.selectByCountZero();
+    }
+
+    @Override
+    public Integer selectByCountThirty() {
+        return mapper.selectByCountThirty(System.currentTimeMillis());
+    }
+
+    @Override
+    public Integer selectByCountSeven() {
+        return mapper.selectByCountSeven(System.currentTimeMillis());
+    }
 }

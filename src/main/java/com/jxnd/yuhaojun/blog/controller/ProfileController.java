@@ -2,7 +2,9 @@ package com.jxnd.yuhaojun.blog.controller;
 
 import com.jxnd.yuhaojun.blog.dto.NotificationDTO;
 import com.jxnd.yuhaojun.blog.dto.PaginationDTO;
+import com.jxnd.yuhaojun.blog.model.Active;
 import com.jxnd.yuhaojun.blog.model.User;
+import com.jxnd.yuhaojun.blog.service.ActiveService;
 import com.jxnd.yuhaojun.blog.service.NotificationService;
 import com.jxnd.yuhaojun.blog.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -21,6 +24,8 @@ public class ProfileController {
     private ProfileService profileService;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private ActiveService activeService;
 
     @GetMapping("/profile/{action}")
     public String profile(HttpServletRequest request, @PathVariable(name = "action") String action, Model model, @RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "size", defaultValue = "5") Integer size) {
@@ -38,6 +43,8 @@ public class ProfileController {
             if (request.getSession().getAttribute("user") == null) {
                 return "redirect:/index";
             }
+            List<Active> activeList = activeService.selectAll();
+            model.addAttribute("activeList",activeList);
             model.addAttribute("sectionName", "消息中心");
             model.addAttribute("section", "messages");
         } else if ("comments".equals(action)) {

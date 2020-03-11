@@ -32,4 +32,16 @@ public interface QuestionDAO {
     List<Question> selectByLimitTag(Integer offset, Integer size, String hotTag);
 
     List<Question> selectByLimitSeachTag(Integer offset, Integer size, String hotTag, String seach);
+
+    List<Question> selectPlusZero(Integer offset, Integer size);
+
+    List<Question> selectPlusThirty(Integer offset, Integer size);
+
+    List<Question> selectPlusSeven(Integer offset, Integer size);
+
+    Integer selectByCountZero();
+
+    Integer selectByCountThirty();
+
+    Integer selectByCountSeven();
 }

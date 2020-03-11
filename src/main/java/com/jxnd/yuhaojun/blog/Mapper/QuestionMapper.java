@@ -58,4 +58,22 @@ public interface QuestionMapper {
 
     @Select("SELECT * FROM question WHERE title LIKE '%' #{seach} '%' AND tag LIKE '%' #{hotTag} '%' ORDER BY gmt_create desc limit #{offset},#{size}")
     List<Question> selectByLimitSeachTag(Integer offset, String seach, Integer size, String hotTag);
+
+    @Select("SELECT * FROM question WHERE comment_count = 0 ORDER BY gmt_create desc limit #{offset},#{size}")
+    List<Question> selectPlusZero(Integer offset,Integer size);
+
+    @Select("SELECT * FROM question WHERE #{gmt_create} - gmt_create < 2592000000 ORDER BY gmt_create desc limit #{offset},#{size}")
+    List<Question> selectPlusThirty(Long gmt_create,Integer offset,Integer size);
+
+    @Select("SELECT * FROM question WHERE #{gmt_create} - gmt_create < 604800000 ORDER BY gmt_create desc limit #{offset},#{size}")
+    List<Question> selectPlusSeven(Long gmt_create,Integer offset,Integer size);
+
+    @Select("SELECT COUNT(1) FROM question WHERE comment_count = 0")
+    Integer selectByCountZero();
+
+    @Select("SELECT COUNT(1) FROM question WHERE #{gmt_create} - gmt_create < 2592000000 ")
+    Integer selectByCountThirty(Long gmt_create);
+
+    @Select("SELECT COUNT(1) FROM question WHERE #{gmt_create} - gmt_create < 604800000")
+    Integer selectByCountSeven(Long gmt_create);
 }

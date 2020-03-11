@@ -81,5 +81,86 @@ public class QuestionService {
         paginationDTO.setpagination(totalCount, page);
         return paginationDTO;
     }
+
+    public PaginationDTO selectPlus(String Nav, Integer page, Integer size) {
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        PaginationDTO paginationDTO = new PaginationDTO();
+        int totalCount ;
+        if (Nav.equals("zero")) {
+            Integer count = questionDAO.selectByCountZero();
+            //计算总页数
+            if (count % size == 0) {
+                totalCount = count / size;
+            } else {
+                totalCount = count / size + 1;
+            }
+            if (page > totalCount) {
+                page = totalCount;
+            }
+            if (page < 1) {
+                page = 1;
+            }
+            Integer offset = (page - 1) * size;
+            List<Question> questionList = questionDAO.selectPlusZero(offset,size);
+            for (Question question : questionList) {
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(question, questionDTO);
+                User user = userDAO.selectByCreator(question.getCreator());
+                questionDTO.setUser(user);
+                questionDTOList.add(questionDTO);
+            }
+            paginationDTO.setpagination(totalCount, page);
+        } else if (Nav.equals("thirty")) {
+            Integer count = questionDAO.selectByCountThirty();
+            //计算总页数
+            if (count % size == 0) {
+                totalCount = count / size;
+            } else {
+                totalCount = count / size + 1;
+            }
+            if (page > totalCount) {
+                page = totalCount;
+            }
+            if (page < 1) {
+                page = 1;
+            }
+            Integer offset = (page - 1) * size;
+            List<Question> questionList = questionDAO.selectPlusThirty(offset,size);
+            for (Question question : questionList) {
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(question, questionDTO);
+                User user = userDAO.selectByCreator(question.getCreator());
+                questionDTO.setUser(user);
+                questionDTOList.add(questionDTO);
+            }
+            paginationDTO.setpagination(totalCount, page);
+        } else if (Nav.equals("seven")) {
+            Integer count = questionDAO.selectByCountSeven();
+            //计算总页数
+            if (count % size == 0) {
+                totalCount = count / size;
+            } else {
+                totalCount = count / size + 1;
+            }
+            if (page > totalCount) {
+                page = totalCount;
+            }
+            if (page < 1) {
+                page = 1;
+            }
+            Integer offset = (page - 1) * size;
+            List<Question> questionList = questionDAO.selectPlusSeven(offset,size);
+            for (Question question : questionList) {
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(question, questionDTO);
+                User user = userDAO.selectByCreator(question.getCreator());
+                questionDTO.setUser(user);
+                questionDTOList.add(questionDTO);
+            }
+            paginationDTO.setpagination(totalCount, page);
+        }
+        paginationDTO.setQuestionDTOList(questionDTOList);
+        return paginationDTO;
+    }
 }
                                      

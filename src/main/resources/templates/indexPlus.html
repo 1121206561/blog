@@ -33,72 +33,61 @@
                                                                                   style="color: red">消灭零回复</a></span>
             </div>
             <hr style="margin-top: 0px;">
-            <div th:insert="couplet :: div" style="margin-left: 140%;"></div>
-            <div class="media" th:each="question:${paginationDTO.questionDTOList}">
+            <div class="media" th:each="questionDTO:${paginationDTO.questionDTOList}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-rounded" th:src="${question.user.avatar_url}">
+                        <img class="media-object img-rounded" th:src="${questionDTO.user.avatar_url}">
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">
-                        <a th:href="@{'/MyQuestion/'+${question.id}}" th:text="${question.title}"></a>
+                        <a th:href="@{'/MyQuestion/'+${questionDTO.id}}" th:text="${questionDTO.title}"></a>
                     </h4>
-                    <span class="text-desc"><span th:text="${question.comment_count}"></span>个回复·<span
-                            th:text="${question.view_count}"></span>次浏览·<span
-                            th:text="${#dates.format(question.gmt_create,'dd MMMM yyyy')}"></span></span>
+                    <span class="text-desc"><span th:text="${questionDTO.comment_count}"></span>个回复·<span
+                            th:text="${questionDTO.view_count}"></span>次浏览·<span
+                            th:text="${#dates.format(questionDTO.gmt_create,'dd MMMM yyyy')}"></span></span>
                 </div>
             </div>
             <nav aria-label="Page navigation">
-                <ul class="pagination">
+                <ul class="pagination" style="margin-bottom: 0px">
                     <li th:if="${paginationDTO.showFirstPage}">
-                        <a th:href="@{/index(page=1,seach=${seach},HotTag=${tag})}" aria-label="Previous">
+                        <a th:href="@{/pattern(page=1,Nav=${Nav})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li th:if="${paginationDTO.showPrevious}">
-                        <a th:href="@{/index(page=${paginationDTO.page - 1},seach=${seach},HotTag=${tag})}"
+                        <a th:href="@{pattern(page=${paginationDTO.page - 1},Nav=${Nav})}"
                            aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page : ${paginationDTO.pages}" th:class="${paginationDTO.page ==page}?'active':''">
-                        <a th:href="@{/index(page=${page},seach=${seach},HotTag=${tag})}" th:text="${page}"></a>
+                        <a th:href="@{/pattern(page=${page},Nav=${Nav})}" th:text="${page}"></a>
                     </li>
                     <li th:if="${paginationDTO.showNext}">
-                        <a th:href="@{/index(page=${paginationDTO.page + 1},seach=${seach},HotTag=${tag})}"
+                        <a th:href="@{/pattern(page=${paginationDTO.page + 1},Nav=${Nav})}"
                            aria-label="Previous">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li th:if="${paginationDTO.showEndPage}">
-                        <a th:href="@{/index(page=${paginationDTO.totalCount},seach=${seach},HotTag=${tag})}"
+                        <a th:href="@{/pattern(page=${paginationDTO.totalCount},Nav=${Nav})}"
                            aria-label="Previous">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
-                    <div th:insert="ad :: div"></div>
                 </ul>
             </nav>
+            <img src="http://i2.qhimg.com/t017631697a557a873a.jpg"
+                 style="width: 5%;height: 5%;">
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>热门话题</h3>
-            <ul class="question-related">
-                <div class="hot-tag" th:each="HotTag : ${HotTaglist}">
-                    <li>
-                        <a th:href="@{/index(page=1,seach=${seach},HotTag=${HotTag.key})}" th:text="${HotTag.key}"></a>
-                        <span style="color: red">当前热度 : </span>
-                        <span style="color:black;" th:text="${HotTag.value}">热度</span>
-                    </li>
-                </div>
-            </ul>
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 5px">
-            <div th:each="ad:${session.ads}" th:if="${ad.pos == 'SBAR'}">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a th:href="${ad.url}" target="_blank"><img th:src="${ad.image}"
-                                                                style="height: 100%;width: 100%"></a>
-                </div>
-            </div>
+            <img src="http://img12.360buyimg.com/popWaterMark/jfs/t823/9/210515231/199837/3ae09f0f/550a6428Nfb9c8506.jpg"
+                 style="width: 50%;height: 50%;">
+            <img src="http://img12.360buyimg.com/popWaterMark/jfs/t823/9/210515231/199837/3ae09f0f/550a6428Nfb9c8506.jpg"
+                 style="width: 60%;height: 50%;">
+            <img src="http://img12.360buyimg.com/popWaterMark/jfs/t823/9/210515231/199837/3ae09f0f/550a6428Nfb9c8506.jpg"
+                 style="width: 70%;height: 50%;">
         </div>
     </div>
 </div>
