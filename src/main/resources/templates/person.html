@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>博客社区</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/person.css">
+    <link rel="stylesheet" href="/css/blog.css">
+</head>
+<body>
+<div th:insert="navigation :: nav"></div>
+<div class="container-fluid main">
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3357775794,3693458566&fm=26&gp=0.jpg"
+             width="100%" style="margin-top: 30%;">
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+        <div class="Content-Main">
+            <h1>个人信息</h1>
+            <div class="fileInputContainer">
+                <img th:src="${person.img}" class="fileInputContainer">
+            </div>
+            <label>
+                <span>Your name:</span>
+                <input type="text" th:value="${person.name}" style="color:red;">
+            </label>
+            <label>
+                <span>Your age:</span>
+                <input type="text" th:value="${person.age}" style="color:red;">
+            </label>
+            <label>
+                <span>Your birthday :</span>
+                <input type="email" th:value="${person.birthday}" style="color:red;">
+            </label>
+            <label>
+                <span>Your constellation :</span>
+                <input type="email" th:value="${person.constellation}" style="color:red;">
+            </label>
+            <label>
+                <span>Your sex:</span>
+                <input type="text" class="man" th:value="${person.sex}" style="color:red;">
+            </label>
+            <label>
+                <span>Your qq :</span>
+                <input type="email" th:value="${person.qq}" style="color:red;">
+            </label>
+            <label>
+                <span>Your Phone :</span>
+                <input type="email" th:value="${person.mailbox}" style="color:red;">
+            </label>
+            <label>
+                <span>Your School :</span>
+                <input type="email" th:value="${person.school}" style="color:red;">
+            </label>
+            <label>
+                <span>Your city :</span>
+                <input type="email" th:value="${person.city}" style="color:red;">
+            </label>
+            <label>
+                <span>Message:</span>
+                <textarea id="message" name="message" th:text="${person.autograph}"
+                          style="color:red;margin-bottom: 5px;"></textarea>
+            </label>
+            <a th:href="@{/updatePerson(id=${person.id})}">
+                <button type="button" class="btn btn-primary center-block" style="margin-top: 0px;">编辑</button>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3357775794,3693458566&fm=26&gp=0.jpg"
+             width="100%" style="margin-top: 30%;">
+    </div>
+</div>
+<div th:insert="footer :: div"></div>
+</body>
+</html>
