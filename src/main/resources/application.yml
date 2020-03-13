@@ -4,7 +4,7 @@ server:
 Github:
   Client_id: 1885fcec32c1656b5e00
   Client_secret: e88e7999cebe9defbf3018d9c390d128308d3aa3
-  Redirect_uri: http://localhost:8887/callback
+  Redirect_uri: http://175.24.14.146/callback
 TengXun:
   Cos_secretid: AKID3uWnAHGl7G9rMbCNsSpxsZ1D9pIYtIm0
   Cos_secretkey: 81gCxYzA6nEPN7bpnWrwlNnx50g6GAsM
@@ -14,7 +14,7 @@ TengXun:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.2.122:3306/blog?serverTimezone=UTC&characterEncoding=utf-8
+    url: jdbc:mysql:///blog?serverTimezone=UTC&characterEncoding=utf-8
     username: root
     password: admin
 mybatis:

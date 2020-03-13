@@ -35,7 +35,7 @@ function comment(id, content, type) {
                 if (response.code == 2003) {
                     var isAcception = confirm(response.message);
                     if (isAcception) {
-                        window.open("https://github.com/login/oauth/authorize?client_id=1885fcec32c1656b5e00&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
+                        window.open("https://github.com/login/oauth/authorize?client_id=1885fcec32c1656b5e00&redirect_uri=http://175.24.14.146/callback&scope=user&state=1");
                         /*给跳转回去的页面设置一个值来进行判断 */
                         window.localStorage.setItem("closable", true);
                     }
