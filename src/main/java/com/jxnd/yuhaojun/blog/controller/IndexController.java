@@ -22,6 +22,11 @@ public class IndexController {
     @Autowired
     private HotTagsTasksCoach hotTagsTasksCoach;
 
+    @GetMapping("/")
+    public String index() {
+        return "/index";
+    }
+
     @GetMapping("/index")
     public String hello(HttpServletRequest request, String HotTag, String seach, Model model, @RequestParam(name = "page", defaultValue = "1") Integer page, @RequestParam(name = "size", defaultValue = "5") Integer size) {
         PaginationDTO paginationDTO = questionService.select(HotTag, seach, page, size);
