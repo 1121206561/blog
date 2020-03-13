@@ -14,7 +14,7 @@ TengXun:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///blog?serverTimezone=UTC&characterEncoding=utf-8
+    url: jdbc:mysql://192.168.2.122:3306/blog?serverTimezone=UTC&characterEncoding=utf-8
     username: root
     password: admin
 mybatis:
